@@ -1,5 +1,6 @@
 import React from "react";
 import ListComponent from "./ListComponent";
+import LoginComponent from "./LoginComponent";
 
 export default class UserLists extends React.Component {
   state = {
@@ -19,7 +20,6 @@ export default class UserLists extends React.Component {
     const response = await fetch(url, config);
     const data = await response.json();
 
-    console.log(data);
     this.setState({
       lists: data,
       loading: false,
@@ -28,15 +28,24 @@ export default class UserLists extends React.Component {
 
   render() {
     const ListsAPI = this.state.lists;
+    const token = "";
 
+    if (token === "") {
+      return <LoginComponent />;
+    } else {
+      return (
+        <div>
+          {/* <ListComponent listName="Minha lista" /> */}
 
-    
-    return (
-      <div>
-        {/* <ListComponent listName="Minha lista" /> */}
-        
-        {ListsAPI.map(list => <ListComponent key={list.id} listName={list.name} items={list.listitem_set} />)}
-      </div>
-    );
+          {ListsAPI.map((list) => (
+            <ListComponent
+              key={list.id}
+              listName={list.name}
+              items={list.listitem_set}
+            />
+          ))}
+        </div>
+      );
+    }
   }
 }

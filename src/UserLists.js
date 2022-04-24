@@ -9,26 +9,29 @@ export default class UserLists extends React.Component {
   };
 
   async componentDidMount() {
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Token 955b30a7bd5ed85a7c067e33c5ed12e99d24e1f5",
-      },
-    };
+    const token = localStorage.getItem("token");
+    if (token) {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+      };
 
-    const url = "http://localhost:8000/core/list/";
-    const response = await fetch(url, config);
-    const data = await response.json();
+      const url = "http://localhost:8000/core/list/";
+      const response = await fetch(url, config);
+      const data = await response.json();
 
-    this.setState({
-      lists: data,
-      loading: false,
-    });
+      this.setState({
+        lists: data,
+        loading: false,
+      });
+    }
   }
 
   render() {
     const ListsAPI = this.state.lists;
-    const token = "";
+    const token = localStorage.getItem("token") || "";
 
     if (token === "") {
       return <LoginComponent />;

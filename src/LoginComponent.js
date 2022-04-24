@@ -4,7 +4,7 @@ import UserLists from "./UserLists";
 export default class LoginComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "" };
+    this.state = { username: "flavio", password: "Novadata123" };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,10 +52,20 @@ export default class LoginComponent extends React.Component {
     });
   }
 
+  logout() {
+    localStorage.removeItem("token");
+    this.setState({ token: null });
+  }
+
   render() {
     const token = localStorage.getItem("token") || null;
     if (token) {
-      return <UserLists />;
+      return (
+        <div>
+          <UserLists />
+          <button onClick={() => this.logout()}>Logout</button>
+        </div>
+      )
     } else {
       return (
         <form onSubmit={this.handleSubmit}>

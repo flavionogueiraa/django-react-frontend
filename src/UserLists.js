@@ -10,6 +10,7 @@ export default class UserLists extends React.Component {
 
   async componentDidMount() {
     const token = localStorage.getItem("token");
+    console.log(token);
     const config = {
       headers: {
         "Content-type": "application/json",

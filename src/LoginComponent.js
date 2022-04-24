@@ -1,4 +1,5 @@
 import React from "react";
+import UserLists from "./UserLists";
 
 export default class LoginComponent extends React.Component {
   constructor(props) {
@@ -34,7 +35,9 @@ export default class LoginComponent extends React.Component {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("token", data.token);
-          window.location.reload();
+          this.setState({
+            token: data.token,
+          });
         } else {
           alert("Credenciais inválidas");
         }
@@ -50,23 +53,28 @@ export default class LoginComponent extends React.Component {
   }
 
   render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={this.state.username}
-            onChange={this.handleChange}
-          />
-          <input
-            type="password"
-            value={this.state.password}
-            onChange={this.handleChangePassword}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
+    const token = localStorage.getItem("token") || null;
+    if (token) {
+      return <UserLists />;
+    } else {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Name:
+            <input
+              type="text"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handleChangePassword}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      );
+    }
   }
 }

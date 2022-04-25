@@ -63,26 +63,35 @@ export default class LoginComponent extends React.Component {
       return (
         <div>
           <UserLists />
-          <button onClick={() => this.logout()}>Logout</button>
+          <button className="btn btn-primary btn-block" onClick={() => this.logout()}>Logout</button>
         </div>
-      )
+      );
     } else {
       return (
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
+          <h2>Login</h2>
+          <hr/>
+          <div className="form-group">
             <input
               type="text"
+              className="form-control"
+              placeholder="Name:"
               value={this.state.username}
               onChange={this.handleChange}
             />
+          </div>
+          <div className="form-group">
             <input
               type="password"
+              className="form-control"
+              placeholder="Password:"
               value={this.state.password}
               onChange={this.handleChangePassword}
             />
-          </label>
-          <input type="submit" value="Submit" />
+          </div>
+          <button type="submit" className="btn btn-primary btn-block">
+            Login
+          </button>
         </form>
       );
     }

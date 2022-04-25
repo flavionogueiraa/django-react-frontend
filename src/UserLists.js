@@ -10,7 +10,6 @@ export default class UserLists extends React.Component {
 
   async componentDidMount() {
     const token = localStorage.getItem("token");
-    console.log(token);
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -33,13 +32,19 @@ export default class UserLists extends React.Component {
 
     return (
       <div>
+        <h2>Suas listas</h2>
+        <hr/>
+        <div className="row">
         {ListsAPI.map((list) => (
-          <ListComponent
-            key={list.id}
-            listName={list.name}
-            items={list.listitem_set}
-          />
+          <div className="col-md-6">
+            <ListComponent
+              key={list.id}
+              listName={list.name}
+              items={list.listitem_set}
+            />
+          </div>
         ))}
+      </div>
       </div>
     );
   }
